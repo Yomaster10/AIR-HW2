@@ -1,0 +1,17 @@
+
+
+
+Install the turtlebot3 on your computer. Follow instructions 1.1.1 - 1.1.5 in the following:
+
+https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/
+
+
+
+Install simulation files:
+
+$ cd ~/YOUR_ws/src/
+$ git clone -b melodic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+$ cd ~/YOUR_ws && catkin_build
+
+
+Read more in : https://emanual.robotis.com/docs/en/platform/turtlebot3/simulation/
