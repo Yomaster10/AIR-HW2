@@ -1,1 +1,3 @@
-# AIR-HW2
+# AI & Robotics (AIR) - HW#2
+
+Written by Sharon Goldstein & Yotam Granov
