@@ -1,18 +1,19 @@
 #!/usr/bin/env python
-
 '''
-run this in another terminal:
+In order to run the assignment, open 4 terminals, source ROS Melodic and the workspace in each, and run the following commands:
+
+Terminal 1:
 $ roscore
 
-1. roslaunch MRS_236609 turtlebot3_closed_room_with_2_spheres.launch
-2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/my_ws/src/MRS_236609/maps/closed_room.yaml
+Terminal 2:
+$ roslaunch MRS_236609 turtlebot3_closed_room_with_2_spheres.launch
 
-In my case, it's: roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/AIR_ws/src/MRS_236609/maps/closed_room.yaml
+Terminal 3:
+$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/AIR_ws/src/MRS_236609/maps/closed_room.yaml
 
-3. rosrun MRS_236609 assignment2.py
-
+Terminal 4:
+$ rosrun MRS_236609 assignment2.py --centers_list 2.70626 -1.70573 -3.12399 -2.98513
 '''
-#!/usr/bin/env python
 
 import rospy
 import numpy as np
@@ -121,7 +122,7 @@ class TurtleBot:
 
     def move(self, point, threshold, start_time):
         global pose
-        while np.lingal.norm(np.array(point[0] - pose.x, point[1] - pose.y)) > threshold:
+        while np.linalg.norm(np.array([point[0] - pose.x, point[1] - pose.y])) > threshold:
             wait = self.action_client.wait_for_result(rospy.Duration(0.5))
             if server_unavailable(start_time):
                 return False
@@ -136,13 +137,13 @@ class TurtleBot:
             exit(1)
 
         # circle the object
-        pose_dist = object_center - np.array(pose.x, pose.y)
+        pose_dist = object_center - np.array([pose.x, pose.y])
         new_point = object_center + pose_dist
         self.add_goal(new_point[0], new_point[1], text="opposite")
         start_time = time.time()
 
-        while np.linalg.norm(np.array(new_point[0] - pose.x, new_point[1] - pose.y)) > 1.3:
-            pose_dist = np.array(new_point[0] - pose.x, new_point[1] - pose.y)
+        while np.linalg.norm(np.array([new_point[0] - pose.x, new_point[1] - pose.y])) > 1.3:
+            pose_dist = np.array([new_point[0] - pose.x, new_point[1] - pose.y])
             total_dist = np.linalg.norm(pose_dist)
             pose_sign = np.sign(pose_dist)
 
